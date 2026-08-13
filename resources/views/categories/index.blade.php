@@ -7,11 +7,16 @@
     <title>Document</title>
 </head>
 <body>
+    {{-- {{dd($categories)}} --}}
     <div>
         <h2>Category List</h2>
+        <a href="{{route('categories.create')}}">+Create</a>
         @foreach ($categories as $data)
             <h3>{{ $data['id'] }} : {{ $data['name'] }}</h3>
-
+            <form action="{{ route('categories.delete', [$data->id]) }}" method="POST">
+                @csrf
+                <button type="submit">Delete</button>
+            </form>
         @endforeach
 
     </div>
