@@ -8,11 +8,16 @@
 </head>
 <body>
     <h1>Batches</h1>
+    <a href="{{ route('batches.create') }}">Create Batch</a>
     <ul>
         @foreach ($batches as $batch)
             <li>
                 <h2>{{ $batch['name'] }}</h2>
                 <p>{{ $batch['description'] }}</p>
+                <form action="{{ route('batches.delete', $batch['id']) }}" method="POST">
+                    @csrf
+                    <button type="submit">Delete</button>
+                </form>
             </li>
         @endforeach
     </ul>

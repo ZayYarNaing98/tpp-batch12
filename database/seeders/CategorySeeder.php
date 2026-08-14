@@ -15,23 +15,18 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'id' => 1,
                 'name' => "PHP"
             ],
             [
-                'id' => 2,
                 'name' => "Laravel"
             ],
             [
-                'id' => 3,
                 'name' => "NextJS"
             ],
             [
-                'id' => 4,
                 'name' => "ReactJS"
             ],
             [
-                'id' => 5,
                 'name' => "VueJS"
             ],
         ];

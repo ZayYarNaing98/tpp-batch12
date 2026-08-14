@@ -2,30 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batch;
 use Illuminate\Http\Request;
 
 class BatchController extends Controller
 {
     public function index()
     {
-        $batches = [
-            [
-                'id' => 1,
-                'name' => "Batch 1",
-                'description' => "This is the first batch."
-            ],
-            [
-                'id' => 2,
-                'name' => "Batch 2",
-                'description' => "This is the second batch."
-            ],
-            [
-                'id' => 3,
-                'name' => "Batch 3",
-                'description' => "This is the third batch."
-            ],
-        ];
+        $batches = Batch::all();
 
         return view('batches.index', compact('batches'));
+    }
+
+    public function create()
+    {
+        return view('batches.create');
+    }
+
+    public function store(Request $request)
+    {
+        Batch::create($request->all());
+
+        return redirect()->route('batches.index');
+    }
+
+    public function delete($id)
+    {
+        $batch = Batch::find($id);
+
+        $batch->delete();
+
+        return redirect()->route('batches.index');
     }
 }

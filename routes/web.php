@@ -55,4 +55,7 @@ Route::post('/categories/store', [CategoryController::class, 'store'])->name('ca
 Route::post('/categories/delete/{id}', [CategoryController::class, 'delete'])->name('categories.delete');
 
 
-Route::get('/batches', [BatchController::class, 'index']);
+Route::get('/batches', [BatchController::class, 'index'])->name('batches.index');
+Route::get('/batches/create', [BatchController::class, 'create'])->name('batches.create');
+Route::post('/batches/store', [BatchController::class, 'store'])->name('batches.store');
+Route::post('/batches/delete/{id}', [BatchController::class, 'delete'])->name('batches.delete');
