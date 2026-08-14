@@ -13,6 +13,7 @@
         <a href="{{route('categories.create')}}">+Create</a>
         @foreach ($categories as $data)
             <h3>{{ $data['id'] }} : {{ $data['name'] }}</h3>
+            <a href="{{ route('categories.edit', ['id' => $data->id]) }}">Edit</a>
             <form action="{{ route('categories.delete', [$data->id]) }}" method="POST">
                 @csrf
                 <button type="submit">Delete</button>

@@ -8,7 +8,7 @@
 </head>
 <body>
     <div>
-        <h2>Category Create</h2>
+        <h2>Category Edit</h2>
         @if ($errors->any())
             <div>
                 <ul>
@@ -18,15 +18,14 @@
                 </ul>
             </div>
         @endif
-        <form action="{{route('categories.store')}}" method="POST">
+        <form action="{{route('categories.update', [$category->id])}}" method="POST">
             @csrf
             <label for="name">Category Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter Category Name"/>
+            <input type="text" value="{{ $category->name }}" name="name"/>
             <button type="submit">
-                + Create
+                Update
             </button>
         </form>
-
     </div>
 </body>
 </html>
