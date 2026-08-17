@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -60,4 +61,14 @@ Route::post('/categories/delete/{id}', [CategoryController::class, 'delete'])->n
 Route::get('/batches', [BatchController::class, 'index'])->name('batches.index');
 Route::get('/batches/create', [BatchController::class, 'create'])->name('batches.create');
 Route::post('/batches/store', [BatchController::class, 'store'])->name('batches.store');
+Route::get('/batches/{id}/edit', [BatchController::class, 'edit'])->name('batches.edit');
+Route::post('/batches/{id}/update', [BatchController::class, 'update'])->name('batches.update');
 Route::post('/batches/delete/{id}', [BatchController::class, 'delete'])->name('batches.delete');
+
+
+Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors.index');
+Route::get('/instructors/create', [InstructorController::class, 'create'])->name('instructors.create');
+Route::post('/instructors/store', [InstructorController::class, 'store'])->name('instructors.store');
+Route::get('/instructors/{id}/edit', [InstructorController::class, 'edit'])->name('instructors.edit');
+Route::post('/instructors/{id}/update', [InstructorController::class, 'update'])->name('instructors.update');
+Route::post('/instructors/delete/{id}', [InstructorController::class, 'delete'])->name('instructors.delete');

@@ -14,6 +14,7 @@
             <li>
                 <h2>{{ $batch['name'] }}</h2>
                 <p>{{ $batch['description'] }}</p>
+                <a href="{{ route('batches.edit', ['id' => $batch['id']]) }}">Edit</a>
                 <form action="{{ route('batches.delete', $batch['id']) }}" method="POST">
                     @csrf
                     <button type="submit">Delete</button>
