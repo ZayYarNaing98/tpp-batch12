@@ -26,11 +26,22 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string'
+        $request->validate([
+            'name' => 'required|string',
+            'image' => 'nullable'
         ]);
 
-        Category::create($data);
+        $imageName = time() . '.' . $request->image->extension();
+        if($request->hasFile('image'))
+        {
+            $request->image->move(public_path('categoryImages'), $imageName);
+        }
+
+
+        Category::create([
+            'name' => $request->name,
+            'image' => $imageName,
+        ]);
 
         return redirect()->route('categories.index');
 

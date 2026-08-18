@@ -18,6 +18,7 @@
             <thead>
                 <tr>
                     <td>#</td>
+                    <td>Batch</td>
                     <td>NAME</td>
                     <td>EMAIL</td>
                     <td>PHONE</td>
@@ -28,6 +29,7 @@
                 @foreach ($students as $data)
                     <tr>
                         <td>{{ $data->id }}</td>
+                        <td>{{ $data->batch->name ?? null }}</td>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->email }}</td>
                         <td>{{ $data->phone }}</td>

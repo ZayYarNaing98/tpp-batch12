@@ -15,7 +15,7 @@
         <h2 class="my-4">Create New Category</h2>
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('categories.store') }}" method="POST">
+                <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Category Name :</label>
@@ -26,6 +26,10 @@
                                 {{ $message }}
                             </div>
                         @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" >
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">
                         + Create

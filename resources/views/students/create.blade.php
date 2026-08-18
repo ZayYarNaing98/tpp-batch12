@@ -18,6 +18,16 @@
                 <form action="{{ route('students.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
+                        <label for="batch_id">Batch</label>
+                        <select name="batch_id" id="batch_id" class="form-control">
+                            @foreach ($batches as $batch)
+                                <option value="{{$batch->id}}">
+                                    {{$batch->name}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="name" class="form-label">Student Name :</label>
                         <input type="text" id="name" name="name" value="{{ old('name') }}"
                             placeholder="Enter Student Name" class="form-control" />

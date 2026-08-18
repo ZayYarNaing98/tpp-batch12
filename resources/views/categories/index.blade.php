@@ -19,6 +19,7 @@
                 <tr>
                     <td>#</td>
                     <td>NAME</td>
+                    <td>IMAGE</td>
                     <td>ACTION</td>
                 </tr>
             </thead>
@@ -27,6 +28,13 @@
                     <tr>
                         <td>{{ $data->id }}</td>
                         <td>{{ $data->name }}</td>
+                        <td>
+                            @if ($data->image)
+                                <img src="{{ asset('categoryImages/' . $data->image) }}" alt="{{ $data->name }}" style="width: 50; height: 50px;">
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td class="d-flex">
                             <a href="{{ route('categories.edit', ['id' => $data->id]) }}" class="btn btn-secondary btn-sm me-2">Edit</a>
                             <form action="{{ route('categories.delete', [$data->id]) }}" method="POST">

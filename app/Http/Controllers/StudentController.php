@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentUpdateRequest;
+use App\Models\Batch;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -10,19 +11,22 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::all();
+        $students = Student::with('batch')->get();
 
         return view('students.index', compact('students'));
     }
 
     public function create()
     {
-        return view('students.create');
+        $batches = Batch::all();
+
+        return view('students.create', compact('batches'));
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
+            'batch_id' => 'required',
             'name' => 'required|string',
             'email' => 'required|email|unique:students,email',
             'phone' => 'required|string'
