@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BatchUpdateRequest extends FormRequest
+class StudentUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class BatchUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'description' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'status' => 'required|in:upcoming,ongoing,complete'
+            'email' => 'required|email|unique:students,email,' . $this->id,
+            'phone' => 'required|string'
         ];
     }
 }

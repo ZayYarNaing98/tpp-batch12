@@ -48,7 +48,10 @@ class BatchController extends Controller
 
         $batch->update([
             'name' => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'status' => $request->status
         ]);
 
         return redirect()->route('batches.index');

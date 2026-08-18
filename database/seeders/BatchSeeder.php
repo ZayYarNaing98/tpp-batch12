@@ -16,15 +16,24 @@ class BatchSeeder extends Seeder
         $batches = [
             [
                 'name' => "Batch 1",
-                'description' => "This is the first batch."
+                'description' => "This is the first batch.",
+                'start_date' => "2026-01-06",
+                'end_date' => "2026-04-06",
+                'status' => "complete"
             ],
             [
                 'name' => "Batch 2",
-                'description' => "This is the second batch."
+                'description' => "This is the second batch.",
+                'start_date' => "2026-06-01",
+                'end_date' => "2026-09-01",
+                'status' => "ongoing"
             ],
             [
                 'name' => "Batch 3",
-                'description' => "This is the third batch."
+                'description' => "This is the third batch.",
+                'start_date' => "2026-10-05",
+                'end_date' => "2027-01-05",
+                'status' => "upcoming"
             ],
         ];
 

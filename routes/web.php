@@ -3,6 +3,7 @@
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,13 +11,13 @@ Route::get('/', function () {
 });
 
 // Static Route
-Route::get('/students', function()
+Route::get('/hello', function()
 {
     return "Hello, students";
 });
 
 // Dynamic Route
-Route::get('/students/{id}', function($id)
+Route::get('/hello/{id}', function($id)
 {
     return "Studnet ID : " . $id;
 });
@@ -72,3 +73,11 @@ Route::post('/instructors/store', [InstructorController::class, 'store'])->name(
 Route::get('/instructors/{id}/edit', [InstructorController::class, 'edit'])->name('instructors.edit');
 Route::post('/instructors/{id}/update', [InstructorController::class, 'update'])->name('instructors.update');
 Route::post('/instructors/delete/{id}', [InstructorController::class, 'delete'])->name('instructors.delete');
+
+
+Route::get('/students', [StudentController::class, 'index'])->name('students.index');
+Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
+Route::post('/students/store', [StudentController::class, 'store'])->name('students.store');
+Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('students.edit');
+Route::post('/students/{id}/update', [StudentController::class, 'update'])->name('students.update');
+Route::post('/students/delete/{id}', [StudentController::class, 'delete'])->name('students.delete');
