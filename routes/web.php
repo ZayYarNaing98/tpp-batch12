@@ -4,52 +4,16 @@ use App\Http\Controllers\BatchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\StudentController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-// Static Route
-Route::get('/hello', function()
-{
-    return "Hello, students";
-});
+Auth::routes();
 
-// Dynamic Route
-Route::get('/hello/{id}', function($id)
-{
-    return "Studnet ID : " . $id;
-});
-
-// Naming Route
-Route::get('/dashboard', function(){
-    return "Welcome from Talent Professional Program";
-})->name('tpp');
-
-// Redirect Route
-Route::get('/talent', function(){
-    return redirect()->route('tpp');
-});
-
-
-// Group Route
-Route::prefix('/talent')->group(function(){
-
-    Route::get('/php', function(){
-        return "This is PHP Track";
-    });
-
-    Route::get('/java', function(){
-        return "This is Java Track";
-    });
-});
-
-
-// Category
-// Route::get('/categories', function(){
-//     return view('categories.index');
-// });
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
@@ -81,3 +45,5 @@ Route::post('/students/store', [StudentController::class, 'store'])->name('stude
 Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('students.edit');
 Route::post('/students/{id}/update', [StudentController::class, 'update'])->name('students.update');
 Route::post('/students/delete/{id}', [StudentController::class, 'delete'])->name('students.delete');
+
+
