@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InstructorUpdateRequest;
-use App\Models\Instructor;
+use App\Repositories\Instructor\InstructorRepositoryInterface;
 use Illuminate\Http\Request;
 
 class InstructorController extends Controller
 {
+
+    protected $instructorRepository;
+    public function __construct(InstructorRepositoryInterface $instructorRepository)
+    {
+        $this->instructorRepository = $instructorRepository;
+    }
+
     public function index()
     {
-        $instructors = Instructor::all();
+        $instructors = $this->instructorRepository->index();
 
         return view('instructors.index', compact('instructors'));
     }
@@ -28,21 +35,21 @@ class InstructorController extends Controller
             'phone' => 'nullable|string'
         ]);
 
-        Instructor::create($data);
+        $this->instructorRepository->store($data);
 
         return redirect()->route('instructors.index');
     }
 
     public function edit($id)
     {
-        $instructor = Instructor::find($id);
+        $instructor = $this->instructorRepository->show($id);
 
         return view('instructors.edit', compact('instructor'));
     }
 
     public function update(InstructorUpdateRequest $request)
     {
-        $instructor = Instructor::find($request->id);
+        $instructor = $this->instructorRepository->show($request->id);
 
         $instructor->update([
             'name' => $request->name,
@@ -55,7 +62,7 @@ class InstructorController extends Controller
 
     public function delete($id)
     {
-        $instructor = Instructor::find($id);
+        $instructor = $this->instructorRepository->show($id);
 
         $instructor->delete();
 

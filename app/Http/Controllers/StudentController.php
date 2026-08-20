@@ -3,22 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentUpdateRequest;
-use App\Models\Batch;
-use App\Models\Student;
+use App\Repositories\Batch\BatchRepositoryInterface;
+use App\Repositories\Student\StudentRepositoryInterface;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+
+    protected $studentRepository;
+    protected $batchRepository;
+    public function __construct(StudentRepositoryInterface $studentRepository, BatchRepositoryInterface $batchRepository)
+    {
+        $this->studentRepository = $studentRepository;
+        $this->batchRepository = $batchRepository;
+    }
+
     public function index()
     {
-        $students = Student::with('batch')->get();
+        $students = $this->studentRepository->index();
 
         return view('students.index', compact('students'));
     }
 
     public function create()
     {
-        $batches = Batch::all();
+        $batches = $this->batchRepository->index();
 
         return view('students.create', compact('batches'));
     }
@@ -32,21 +41,21 @@ class StudentController extends Controller
             'phone' => 'required|string'
         ]);
 
-        Student::create($data);
+        $this->studentRepository->store($data);
 
         return redirect()->route('students.index');
     }
 
     public function edit($id)
     {
-        $student = Student::find($id);
+        $student = $this->studentRepository->show($id);
 
         return view('students.edit', compact('student'));
     }
 
     public function update(StudentUpdateRequest $request)
     {
-        $student = Student::find($request->id);
+        $student = $this->studentRepository->show($request->id);
 
         $student->update([
             'name' => $request->name,
@@ -59,7 +68,7 @@ class StudentController extends Controller
 
     public function delete($id)
     {
-        $student = Student::find($id);
+        $student = $this->studentRepository->show($id);
 
         $student->delete();
 
