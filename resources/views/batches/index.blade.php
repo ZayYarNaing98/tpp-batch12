@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('content')
     <h2 class="my-4">Batch List</h2>
-    <a href="{{ route('batches.create') }}" class="btn btn-success btn-sm mb-2">+ Create</a>
+    @can('batchCreate')
+        <a href="{{ route('batches.create') }}" class="btn btn-success btn-sm mb-2">+ Create</a>
+    @endcan
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -24,12 +26,16 @@
                     <td>{{ $data->end_date }}</td>
                     <td>{{ $data->status }}</td>
                     <td class="d-flex">
-                        <a href="{{ route('batches.edit', ['id' => $data->id]) }}"
-                            class="btn btn-secondary btn-sm me-2">Edit</a>
-                        <form action="{{ route('batches.delete', [$data->id]) }}" method="POST">
-                            @csrf
-                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                        </form>
+                        @can('batchUpdate')
+                            <a href="{{ route('batches.edit', ['id' => $data->id]) }}"
+                                class="btn btn-secondary btn-sm me-2">Edit</a>
+                        @endcan
+                        @can('batchDelete')
+                            <form action="{{ route('batches.delete', [$data->id]) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach
