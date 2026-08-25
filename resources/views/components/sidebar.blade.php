@@ -44,5 +44,23 @@
                 <span class="menu-title">Instructor</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('users.index')}}"
+                aria-controls="ui-basic">
+                <span class="menu-title">User</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('roles.index')}}"
+                aria-controls="ui-basic">
+                <span class="menu-title">Role</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('permissions.index')}}"
+                aria-controls="ui-basic">
+                <span class="menu-title">Permission</span>
+            </a>
+        </li>
     </ul>
 </nav>
