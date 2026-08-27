@@ -4,22 +4,29 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
-use App\Models\Instructor;
+use App\Http\Requests\InstructorUpdateRequest;
+use App\Repositories\Instructor\InstructorRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class InstructorController extends BaseController
 {
+    protected $instructorRepository;
+    public function __construct(InstructorRepositoryInterface $instructorRepository)
+    {
+        $this->instructorRepository = $instructorRepository;
+    }
+
     public function index()
     {
-        $instructors = Instructor::get();
+        $instructors = $this->instructorRepository->index();
 
         return $this->success($instructors, "Instructors Retrieved Successfully", 200);
     }
 
     public function show($id)
     {
-        $instructor = Instructor::find($id);
+        $instructor = $this->instructorRepository->show($id);
 
         return $this->success($instructor, "Instructor Show Successfully", 200);
     }
@@ -37,7 +44,7 @@ class InstructorController extends BaseController
             return $this->error("Validation Error", $validator->errors(), 422);
         }
 
-        $instructor = Instructor::create([
+        $instructor = $this->instructorRepository->store([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -45,5 +52,23 @@ class InstructorController extends BaseController
 
 
         return $this->success($instructor, "Instructor Creaeted Successfully", 201);
+    }
+
+    public function update(InstructorUpdateRequest $request, $id)
+    {
+        $instructor = $this->instructorRepository->show($id);
+
+        $instructor->update($request->validated());
+
+        return $this->success($instructor, "Instructor Updated Successfully", 200);
+    }
+
+    public function delete($id)
+    {
+        $instructor = $this->instructorRepository->show($id);
+
+        $instructor->delete();
+
+        return $this->success(true, "Instructor Deleted Successfully", 200);
     }
 }
