@@ -13,7 +13,6 @@ class AuthController extends BaseController
     public function login(Request $request)
     {
         $credentials = $request->only(['email', 'password']);
-        // dd($credentials);
 
         if(!JWTAuth::attempt($credentials))
         {
@@ -26,6 +25,7 @@ class AuthController extends BaseController
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
+            'role' => $user->getRoleNames()->first()
         ];
 
         // dd($payload);
